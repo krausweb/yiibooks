@@ -1,0 +1,123 @@
+html,
+body {
+    height: 100%;
+}
+
+.wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -60px;
+    padding: 0 0 60px;
+}
+
+.wrap > .container {
+    padding: 70px 15px 20px;
+}
+
+.footer {
+    height: 60px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+.jumbotron {
+    text-align: center;
+    background-color: transparent;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+.not-set {
+    color: #c55;
+    font-style: italic;
+}
+
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    padding-left: 5px;
+}
+
+a.asc:after {
+    content: /*"\e113"*/ "\e151";
+}
+
+a.desc:after {
+    content: /*"\e114"*/ "\e152";
+}
+
+.sort-numerical a.asc:after {
+    content: "\e153";
+}
+
+.sort-numerical a.desc:after {
+    content: "\e154";
+}
+
+.sort-ordinal a.asc:after {
+    content: "\e155";
+}
+
+.sort-ordinal a.desc:after {
+    content: "\e156";
+}
+
+.grid-view th {
+    white-space: nowrap;
+}
+
+.hint-block {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+}
+
+.error-summary {
+    color: #a94442;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
+}
+
+
+.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th
+, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td
+, .table-bordered > tfoot > tr > td {border: 1px solid black;}
+.table-striped                      {border: 1px solid black;}
+.books_table tbody tr td            {vertical-align: middle !important;}
+.books_table_header th              {vertical-align: middle !important; height: 70px; background-color: #CCCCCC;}
+.books_table_header th a:before, .books_sort_label a:before {position: relative; top: 1px; display: inline-block; font-family: 'Glyphicons Halflings';
+    font-style: normal; font-weight: normal; line-height: 1; padding-right: 5px; }
+.books_table_header th a:before     {content: "\e252";}
+.books_table_header th a:before     {content: "\e252";}
+.books_table_img                    {text-align:center;}
+.books_table_action                 {vertical-align: middle !important; padding:0 !important;}
+.books_action_detail                {height:66px; width:100%}
+.books_action_detail tbody tr td            {padding-left:8px; border-right:1px black solid;}
+.books_action_detail tbody tr td:last-child {border-right: none;}
+
+.books-view                         {padding:10px;}
+.books-update                       {padding:10px;}
+.books-create                       {padding:10px;}
+
+.search_box_right                   {float:right;}
+.search_author                      {width:230px; padding-top: 8px;}
+.search_author_date_input           {width: 162px;}
+.search_author_date_label           {float: left; padding: 14px 10px 0 0; font-weight: normal;}
+.search_author_date_label_two       {float: left; padding: 14px 10px 0 10px; font-weight: normal;}
+.search_btn                         {padding-left: 40px; padding-right: 40px;}
+.field-bookssearch-author_fullname  {width:300px; float:left;}
+.field-bookssearch-book_date_from   {width:300px; float:left;}
+.field-bookssearch-book_date_to     {width:240px; float:left;}
+.field-bookssearch-name             {width:240px; float:left;}
