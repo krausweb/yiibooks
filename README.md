@@ -17,3 +17,6 @@ yiiс migrate
 php yii migrate
 php yiiс migrate
 ```
+
+# Screenshot and DB(bk)
+Находятся в папке: http://yoursite.local/screenshot_and_db
