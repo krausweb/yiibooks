@@ -1,7 +1,6 @@
 <?php
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\helpers\Url;
 
 use newerton\fancybox\FancyBox;
 
@@ -10,11 +9,6 @@ use newerton\fancybox\FancyBox;
 /* @var $authorsModel app\models\Authors */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-
-// редирект на авторизацию - при прямой переходе на страницу
-if (\Yii::$app->getUser()->isGuest && \Yii::$app->getRequest()->url !== Url::to(\Yii::$app->getUser()->loginUrl)) {
-    \Yii::$app->getResponse()->redirect(\Yii::$app->getUser()->loginUrl);
-}
 
 
 $this->title = Yii::t('app', 'Books');

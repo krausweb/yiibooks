@@ -1,16 +1,10 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Books */
 
-
-// редирект на авторизацию - при прямой переходе на страницу
-if (\Yii::$app->getUser()->isGuest && \Yii::$app->getRequest()->url !== Url::to(\Yii::$app->getUser()->loginUrl)) {
-    \Yii::$app->getResponse()->redirect(\Yii::$app->getUser()->loginUrl);
-}
 
 
 $this->title = Yii::t('app', 'Update {modelClass}:', [
