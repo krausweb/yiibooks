@@ -17,7 +17,7 @@ if (\Yii::$app->getUser()->isGuest && \Yii::$app->getRequest()->url !== Url::to(
 }
 
 
-//$this->title = Yii::t('app', 'Books');
+$this->title = Yii::t('app', 'Books');
 $this->params['breadcrumbs'][] = Yii::t('app', 'Books');
 
 echo FancyBox::widget([
@@ -57,7 +57,17 @@ echo FancyBox::widget([
 
 <div class="books-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <!--<h1><?= Html::encode($this->title) ?></h1>-->
+
+    <?= (yii::$app->session->hasFlash('create_ok')) ? '<p class="bg-success">'.yii::$app->session->getFlash('create_ok').'</p>' : '' ?>
+    <?= (yii::$app->session->hasFlash('update_ok')) ? '<p class="bg-success">'.yii::$app->session->getFlash('update_ok').'</p>' : '' ?>
+
+    <?= (yii::$app->session->hasFlash('create_bad')) ? '<p class="bg-danger">'.yii::$app->session->getFlash('create_bad').'</p>' : '' ?>
+    <?= (yii::$app->session->hasFlash('update_bad')) ? '<p class="bg-danger">'.yii::$app->session->getFlash('update_bad').'</p>' : '' ?>
+
+    <?= (yii::$app->session->hasFlash('delete_ok')) ? '<p class="bg-primary">'.yii::$app->session->getFlash('delete_ok').'</p>' : '' ?>
+
+
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([

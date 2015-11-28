@@ -38,4 +38,9 @@ return [
     'Book date from' => 'Дата выхода книги',
     'Book date to' => 'до',
     'author select' => 'автор',
+    'New book - <i>{name}</i> - has been successfully created' => 'Новая книга - <i>{name}</i> - была успешно создана',
+    'New book not has been created' => 'Новая книга не была создана',
+    'Book - <i>{name}</i> - has been successfully updated' => 'Книга - <i>{name}</i> - была успешно обновлена',
+    'Book - <i>{name}</i> - not has been updated' => 'Книга - <i>{name}</i> - не была обновлена',
+    'Book - <i>{name}</i> - was deleted' => 'Книга - <i>{name}</i> - была успешно удалена',
     ];

@@ -121,3 +121,7 @@ a.desc:after {
 .field-bookssearch-book_date_from   {width:300px; float:left;}
 .field-bookssearch-book_date_to     {width:240px; float:left;}
 .field-bookssearch-name             {width:240px; float:left;}
+
+.bg-primary                         {padding:10px;}
+.bg-success                         {padding:10px;}
+.bg-danger                          {padding:10px;}

@@ -63,8 +63,10 @@ class BooksController extends Controller
     {
         $model = new Books();
         if ($model->load(Yii::$app->request->post())) {
-            // @todo не смог свалидировать дату( - сделал примитивную проверку на html5 (в backend/views/books/_form.php)
-            //if ( !$model->validate() ) return $this->redirect(['index']);
+            if (!$model->validate()){
+                yii::$app->session->setFlash('create_bad', yii::t('app','New book not has been created'));
+                return $this->redirect(['index']);
+            }
 
             // возвращаю к формату согласно БД
             $model->date_create = time();
@@ -72,6 +74,8 @@ class BooksController extends Controller
             $model->date = Yii::$app->formatter->asTimestamp($model->date);
 
             $model->save();
+            yii::$app->session->setFlash('create_ok', yii::t('app', 'New book - <i>{name}</i> - has been successfully created', array('name' => $model->name)));
+
             return $this->redirect(Url::previous());
 
         } else {
@@ -90,20 +94,20 @@ class BooksController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $name_previous = $model->name; // for only !validate()
         if ( $model->load(Yii::$app->request->post())) {
-            // @todo не смог запустить валидацию полей по дате в нужном формате - Нужный формат сразу вставляет Datepicker
-            //if ( !$model->validate() ) return $this->redirect(['index']);
+            if ( !$model->validate() ){
+                yii::$app->session->setFlash('update_bad', yii::t('app', 'Book - <i>{name}</i> - not has been updated', array('name' => $name_previous)));
+                return $this->redirect(['index']);
+            }
 
             $model->date_create = Yii::$app->formatter->asTimestamp($model->date_create);
             //$model->date_update = Yii::$app->formatter->asTimestamp($model->date_update);
             $model->date_update = time();
             $model->date = Yii::$app->formatter->asTimestamp($model->date);
 
-            //$model->date_create = Yii::$app->formatter->asTimestamp(str_replace("/", "-", $model->date_create));
-            //$model->date_update = Yii::$app->formatter->asTimestamp(str_replace("/", "-", $model->date_update));
-            //$model->date = Yii::$app->formatter->asTimestamp(str_replace("/", "-", $model->date));
-
             $model->save();
+            yii::$app->session->setFlash('update_ok', yii::t('app', 'Book - <i>{name}</i> - has been successfully updated', array('name' => $model->name)));
             return $this->redirect(Url::previous());
 
         } else {
@@ -121,7 +125,10 @@ class BooksController extends Controller
      */
     public function actionDelete($id)
     {
+        $data = $this->findModel($id);
         $this->findModel($id)->delete();
+        yii::$app->session->setFlash('delete_ok', yii::t('app', 'Book - <i>{name}</i> - was deleted', array('name' => $data->name)));
+
         return $this->redirect( Url::previous() );
     }
 
