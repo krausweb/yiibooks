@@ -92,9 +92,7 @@ class BooksSearch extends Books
         }
 
         // для поиска по автору
-        if($this->author_fullname == 0) {
-            // для селекта "автор"
-        }elseif($this->author_fullname == 7){
+        if($this->author_fullname == 7){
             // для книг без привязки к автору - из books
             $query->andFilterWhere(['=', 'author_id', 0]);
         }else{

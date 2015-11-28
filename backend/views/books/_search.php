@@ -18,9 +18,10 @@ use dosamigos\datepicker\DatePicker;
     ]); ?>
 
     <div>
-        <?= $form->field($model, 'author_fullname')->label(false)
-            ->listBox(array_merge(array(Yii::t('app','author select')), $model->getAuthors(), array(Yii::t('app','UNKNOWN author'))),
-                      ['size'=>'1', 'class'=>'form-control search_author']);?>
+        <?php $authors_all = $model->getAuthors();
+            $authors_all[] = Yii::t('app','UNKNOWN author');
+            echo $form->field($model, 'author_fullname')->label(false)
+                ->dropDownList( $authors_all, ['prompt'=> Yii::t('app','author select'), 'class'=>'form-control search_author'] ); ?>
 
         <?= $form->field($model, 'name')->label(false)->textInput(['placeholder' => 'название книги', 'class'=>'form-control search_author']) ?>
     </div>
