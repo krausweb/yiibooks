@@ -59,13 +59,13 @@ echo FancyBox::widget([
 
     <!--<h1><?= Html::encode($this->title) ?></h1>-->
 
-    <?= (yii::$app->session->hasFlash('create_ok')) ? '<p class="bg-success">'.yii::$app->session->getFlash('create_ok').'</p>' : '' ?>
-    <?= (yii::$app->session->hasFlash('update_ok')) ? '<p class="bg-success">'.yii::$app->session->getFlash('update_ok').'</p>' : '' ?>
+    <?= (yii::$app->session->hasFlash('create_ok')) ? '<p class="alert alert-success">'.yii::$app->session->getFlash('create_ok').'</p>' : '' ?>
+    <?= (yii::$app->session->hasFlash('update_ok')) ? '<p class="alert alert-success">'.yii::$app->session->getFlash('update_ok').'</p>' : '' ?>
 
-    <?= (yii::$app->session->hasFlash('create_bad')) ? '<p class="bg-danger">'.yii::$app->session->getFlash('create_bad').'</p>' : '' ?>
-    <?= (yii::$app->session->hasFlash('update_bad')) ? '<p class="bg-danger">'.yii::$app->session->getFlash('update_bad').'</p>' : '' ?>
+    <?= (yii::$app->session->hasFlash('create_bad')) ? '<p class="alert alert-danger">'.yii::$app->session->getFlash('create_bad').'</p>' : '' ?>
+    <?= (yii::$app->session->hasFlash('update_bad')) ? '<p class="alert alert-danger">'.yii::$app->session->getFlash('update_bad').'</p>' : '' ?>
 
-    <?= (yii::$app->session->hasFlash('delete_ok')) ? '<p class="bg-primary">'.yii::$app->session->getFlash('delete_ok').'</p>' : '' ?>
+    <?= (yii::$app->session->hasFlash('delete_ok')) ? '<p class="alert alert-info">'.yii::$app->session->getFlash('delete_ok').'</p>' : '' ?>
 
 
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
