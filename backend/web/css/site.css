@@ -125,3 +125,5 @@ a.desc:after {
 .bg-primary                         {padding:10px;}
 .bg-success                         {padding:10px;}
 .bg-danger                          {padding:10px;}
+
+.filter_id                          {width:70px;}

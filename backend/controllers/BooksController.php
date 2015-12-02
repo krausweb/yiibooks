@@ -82,7 +82,7 @@ class BooksController extends Controller
             // возвращаю к формату согласно БД
             $model->date_create = time();
             $model->date_update = time();
-            $model->date = Yii::$app->formatter->asTimestamp($model->date);
+            $model->date        = Yii::$app->formatter->asTimestamp($model->date);
 
             $model->save();
             yii::$app->session->setFlash('create_ok', yii::t('app', 'New book - <i>{name}</i> - has been successfully created', array('name' => $model->name)));

@@ -39,8 +39,6 @@ class Books extends \yii\db\ActiveRecord
         return [
             [['name', 'date'], 'required'],
             [['author_id', 'date', 'date_update', 'date_create', 'author_fullname'],'safe'],
-            // @todo не смог запустить валидацию полей по дате, в нужном формате; - Нужный формат сразу вставляет Datepicker (actionUpdate())
-            //[['date', 'date_update', 'date_create'], 'date', 'format' => 'yyyy-MM-dd'],
             [['name', 'preview', 'author_fullname'], 'string', 'max' => 255],
             [['name'], 'unique'],
         ];

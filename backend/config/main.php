@@ -22,8 +22,7 @@ return [
             'decimalSeparator' => ',',
             'thousandSeparator' => ' ',
             'currencyCode' => 'uk',
-            'defaultTimeZone' => 'Europe/Kiev',
-            //'timeZone' => 'Europe/Kiev',
+            'timeZone' => 'Europe/Kiev',
             //'locale' => 'uk_UA',
         ],
 

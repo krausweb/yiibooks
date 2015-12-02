@@ -32,9 +32,9 @@ class BooksSearch extends Books
     public function rules()
     {
         return [
-            [['id', 'date_create', 'date_update', 'date', 'author_id'], 'integer'],
-            [['name', 'preview', 'author', 'author_fullname'], 'safe'], // Additional 'author|safe' - 'Detect' data for getAuthor()
-            [['date', 'date_update', 'date_create', 'book_date_from','book_date_to'], 'date', 'format' => 'dd/MM/yyyy'],
+            [['id', 'date_update', 'author_id'], 'integer'],
+            [['name', 'preview', 'author', 'author_fullname', 'date', 'date_create'], 'safe'], // Additional 'author|safe' - 'Detect' data for getAuthor()
+            [['date_update', 'book_date_from','book_date_to'], 'date', 'format' => 'dd/MM/yyyy'],
         ];
     }
 
@@ -57,7 +57,7 @@ class BooksSearch extends Books
     public function search($params)
     {
         $query = Books::find()
-            ->addSelect([$this->tableName().".*", "CONCAT(firstname, ' ', lastname) AS author_fullname"])
+            ->addSelect([$this->tableName().".*", "CONCAT(authors.firstname, ' ', authors.lastname) AS author_fullname"])
             ->joinWith(['author']);
 
         $dataProvider = new ActiveDataProvider([
@@ -81,24 +81,54 @@ class BooksSearch extends Books
             return $dataProvider;
         }
 
-        // для поиска по названию книги
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        // поиск по названию книги
+        $query->andFilterWhere(['like', 'books.name', $this->name]);
 
-        // для поиска по дате от/до
+        // поиск по дате от/до
         if(!empty($this->book_date_from) and !empty($this->book_date_to)) {
-            $book_date_from = Yii::$app->formatter->asTimestamp(str_replace("/", "-", $this->book_date_from));
-            $book_date_to = Yii::$app->formatter->asTimestamp(str_replace("/", "-", $this->book_date_to));
-            $query->andFilterWhere([ 'between', 'date', $book_date_from, $book_date_to ]);
+            // конвертирую в корректный формат времени и добавляю четкие временные границы
+            $book_date_from = Yii::$app->formatter->asDatetime( str_replace("/", "-", $this->book_date_from), 'dd-MM-yyyy 00:00:00');
+            $book_date_to =  Yii::$app->formatter->asDatetime( str_replace("/", "-", $this->book_date_to), 'dd-MM-yyyy 23:59:59');
+            $book_date_from = Yii::$app->formatter->asTimestamp($book_date_from);
+            $book_date_to = Yii::$app->formatter->asTimestamp($book_date_to);
+            $query->andFilterWhere(['between', 'books.date', $book_date_from, $book_date_to ]);
         }
 
-        // для поиска по автору
-        if($this->author_fullname == 7){
+        // поиск по автору
+        if($this->author_fullname == 7
+            or in_array(trim(mb_strtolower($this->author)), array('без', 'без привязки', 'без привязки к автору'))){
             // для книг без привязки к автору - из books
             $query->andFilterWhere(['=', 'author_id', 0]);
         }else{
             // из authors
+            $query->andFilterWhere(['like', 'authors.firstname', $this->author]);
             $query->andFilterWhere(['=', 'authors.id', $this->author_fullname]);
         }
+
+        /////////////////////// доп параметры для filterModel (если раскомменчены filterModel и Pjax в books/index.php)
+        $query->andFilterWhere(['=', 'books.id', $this->id])
+            ->andFilterWhere(['like', 'books.preview', $this->preview]);
+
+        // дата Выхода книги
+        if(!empty($this->date)) {
+            // конвертирую в корректный формат времени и добавляю четкие временные границы
+            $book_date_from = Yii::$app->formatter->asDatetime( str_replace("/", "-", $this->date), 'dd-MM-yyyy 00:00:00');
+            $book_date_to =  Yii::$app->formatter->asDatetime( str_replace("/", "-", $this->date), 'dd-MM-yyyy 23:59:59');
+            $book_date_from = Yii::$app->formatter->asTimestamp($book_date_from);
+            $book_date_to = Yii::$app->formatter->asTimestamp($book_date_to);
+            $query->andFilterWhere(['between', 'books.date', $book_date_from, $book_date_to ]);
+        }
+
+        // дата Добавления книги
+        if(!empty($this->date_create)) {
+            // конвертирую в корректный формат времени и добавляю четкие временные границы
+            $book_date_from = Yii::$app->formatter->asDatetime( str_replace("/", "-", $this->date_create), 'dd-MM-yyyy 00:00:00');
+            $book_date_to =  Yii::$app->formatter->asDatetime( str_replace("/", "-", $this->date_create), 'dd-MM-yyyy 23:59:59');
+            $book_date_from = Yii::$app->formatter->asTimestamp($book_date_from);
+            $book_date_to = Yii::$app->formatter->asTimestamp($book_date_to);
+            $query->andFilterWhere(['between', 'books.date_create', $book_date_from, $book_date_to ]);
+        }
+        ///////////////////
 
         return $dataProvider;
     }

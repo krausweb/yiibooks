@@ -1,8 +1,10 @@
 <?php
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\Pjax;
 
 use newerton\fancybox\FancyBox;
+use dosamigos\datepicker\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\BooksSearch */
@@ -64,14 +66,17 @@ echo FancyBox::widget([
 
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
+    <?php // Pjax::begin();?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        //'filterModel' => $searchModel,
         'summary' => false,
         'headerRowOptions' => ['class'=>'books_table_header'],
         'tableOptions' => ['class'=>'table table-striped table-bordered books_table'],
         'columns' => [
             [
                 'attribute' => 'id',
+                'filterOptions' => ['class'=>'filter_id'],
             ],
             [
                 'attribute' => 'name',
@@ -96,11 +101,33 @@ echo FancyBox::widget([
             [
                 'attribute' => 'date',
                 'format' => ['date', 'php:d F Y'],
+                'filter' => DatePicker::widget([
+                                           'model' => $searchModel,
+                                           'attribute' => 'date',
+                                           'addon' => '',
+                                           'language' => 'ru',
+                                           'clientOptions' => [
+                                               'autoclose' => true,
+                                               'format' => 'dd/mm/yyyy',
+                                           ]
+                                       ])
+
             ],
             [
                 'attribute' => 'date_create',
                 'value' => function($model){ return $model->getBooksRelativeDate($model->date_create); },
-                //'value' => $searchModel->getBooksRelativeDate($dataProvider->date_create),
+                //'contentOptions' => ['title'=> function($model){ return $model->date_create;}],
+                //'contentOptions' => ['title'=> $searchModel->date_create],
+                'filter' => DatePicker::widget([
+                                           'model' => $searchModel,
+                                           'attribute' => 'date_create',
+                                           'addon' => '',
+                                           'language' => 'ru',
+                                           'clientOptions' => [
+                                               'autoclose' => true,
+                                               'format' => 'dd/mm/yyyy',
+                                           ]
+                                       ])
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
@@ -136,5 +163,6 @@ echo FancyBox::widget([
             ],
         ],
     ]); ?>
+    <?php // Pjax::end();?>
 
 </div>
