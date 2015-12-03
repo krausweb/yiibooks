@@ -10,6 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
+use yii\web\UploadedFile;
 
 /**
  * BooksController implements the CRUD actions for Books model.
@@ -79,6 +80,23 @@ class BooksController extends Controller
                 return $this->redirect(['index']);
             }
 
+            // upload new preview
+            $model->upload_preview = UploadedFile::getInstance($model, 'upload_preview');
+            if($model->upload_preview) {
+                if (($model->upload_preview->type == 'image/jpeg' or $model->upload_preview->type == 'image/png'
+                        or $model->upload_preview->type == 'image/gif' or $model->upload_preview->type == 'image/svg+xml')
+                    and $model->upload_preview->size < 999999
+                ) {
+                    $preview_name_arr = preg_replace("~[ :-]~", "_", explode(".", $model->upload_preview->name));
+                    $preview_name     = $preview_name_arr[0] . '__' . time() . "." . $model->upload_preview->extension;
+                    $model->upload_preview->saveAs('img/small/' . $preview_name, false);
+                    $model->upload_preview->saveAs('img/original/' . $preview_name);
+                    $model->preview = $preview_name;
+                }else{
+                    yii::$app->session->setFlash('upload_preview_bad', yii::t('app', 'Preview not uploaded: error type or big size'));
+                }
+            }
+
             // возвращаю к формату согласно БД
             $model->date_create = time();
             $model->date_update = time();
@@ -110,6 +128,23 @@ class BooksController extends Controller
             if ( !$model->validate() ){
                 yii::$app->session->setFlash('update_bad', yii::t('app', 'Book - <i>{name}</i> - not has been updated', array('name' => $name_previous)));
                 return $this->redirect(['index']);
+            }
+
+            // upload new preview
+            $model->upload_preview = UploadedFile::getInstance($model, 'upload_preview');
+            if($model->upload_preview) {
+                if (($model->upload_preview->type == 'image/jpeg' or $model->upload_preview->type == 'image/png'
+                        or $model->upload_preview->type == 'image/gif' or $model->upload_preview->type == 'image/svg+xml')
+                    and $model->upload_preview->size < 999999
+                ) {
+                    $preview_name_arr = preg_replace("~[ :-]~", "_", explode(".", $model->upload_preview->name));
+                    $preview_name     = $preview_name_arr[0] . '__' . time() . "." . $model->upload_preview->extension;
+                    $model->upload_preview->saveAs('img/small/' . $preview_name, false);
+                    $model->upload_preview->saveAs('img/original/' . $preview_name);
+                    $model->preview = $preview_name;
+                }else{
+                    yii::$app->session->setFlash('upload_preview_bad', yii::t('app', 'Preview not uploaded: error type or big size'));
+                }
             }
 
             $model->date_create = Yii::$app->formatter->asTimestamp($model->date_create);

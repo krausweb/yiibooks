@@ -25,11 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'preview',
                 'format' => 'raw',
-                'value'=> Html::a(Html::img("/backend/web/img/small/".$model->preview, [
+                'value'=> Html::a(Html::img("img/small/".$model->preview, [
                     'alt' => $model->name,
                     'style' => 'height:100px;'
                 ]),
-                                  "/backend/web/img/original/".$model->preview,
+                                  "img/original/".$model->preview,
                                   [ 'title' => $model->name, 'rel' => 'fancybox', 'target'=>'_blank' ] ),
                 'label' => Yii::t('app', 'Photo'),
             ],

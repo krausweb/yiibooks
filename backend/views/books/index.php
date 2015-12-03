@@ -63,6 +63,7 @@ echo FancyBox::widget([
 
     <?= (yii::$app->session->hasFlash('delete_ok')) ? '<p class="alert alert-info">'.yii::$app->session->getFlash('delete_ok').'</p>' : '' ?>
 
+    <?= (yii::$app->session->hasFlash('upload_preview_bad')) ? '<p class="alert alert-info">'.yii::$app->session->getFlash('upload_preview_bad').'</p>' : '' ?>
 
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -85,11 +86,11 @@ echo FancyBox::widget([
                 'attribute' => 'preview',
                 'format'=>'raw',
                 'value' => function($model){
-                    return Html::a(Html::img("/backend/web/img/small/".$model->preview, [
+                    return Html::a(Html::img("img/small/".$model->preview, [
                                                 'alt' => $model->name,
                                                 'style' => 'height:50px;'
                                             ]),
-                                        "/backend/web/img/original/".$model->preview,
+                                        "img/original/".$model->preview,
                                         [ 'title' => $model->name, 'rel' => 'fancybox' ] );
                 },
                 'contentOptions' => ['class'=>'books_table_img'],

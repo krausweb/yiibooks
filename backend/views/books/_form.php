@@ -15,11 +15,21 @@ use dosamigos\datepicker\DatePicker;
 
 <div class="books-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
+
+    <?php if(!$model->isNewRecord){
+        echo Html::a(Html::img("img/small/".$model->preview, [
+                        'alt' => $model->name,
+                        'style' => 'height:100px;padding-bottom: 10px;'
+                    ]),
+             "img/original/".$model->preview,
+             [ 'title' => $model->name, 'rel' => 'fancybox' ] );
+        }
+     ?>
+
+    <?= $form->field($model, 'upload_preview')->fileInput(); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'preview')->textInput() ?>
 
     <?= $form->field($model, 'author')->textInput(['value'=> ( (isset($model->author->firstname)) ? $model->author->firstname." ".$model->author->lastname : Yii::t('app','UNKNOWN author')),
                                                   'disabled' => 'disabled']) ?>

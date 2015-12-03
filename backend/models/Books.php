@@ -22,6 +22,10 @@ class Books extends \yii\db\ActiveRecord
      * @var string additional mysql CONCAT field Author fullname
      */
     public $author_fullname;
+    /**
+     * @var string for upload image
+     */
+    public $upload_preview;
 
     /**
      * @inheritdoc
@@ -41,6 +45,7 @@ class Books extends \yii\db\ActiveRecord
             [['author_id', 'date', 'date_update', 'date_create', 'author_fullname'],'safe'],
             [['name', 'preview', 'author_fullname'], 'string', 'max' => 255],
             [['name'], 'unique'],
+            [['upload_preview'], 'file'],
         ];
     }
 
@@ -61,6 +66,7 @@ class Books extends \yii\db\ActiveRecord
             'author_fullname'=> Yii::t('app', 'Author full name'),
             'book_date_from'=> Yii::t('app','Book date create from'),
             'book_date_to'=> Yii::t('app','Book date create to'),
+            'upload_preview'=> Yii::t('app', 'Upload preview'),
         ];
     }
 

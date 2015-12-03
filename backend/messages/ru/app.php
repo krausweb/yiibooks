@@ -43,4 +43,6 @@ return [
     'Book - <i>{name}</i> - has been successfully updated' => 'Книга - <i>{name}</i> - была успешно обновлена',
     'Book - <i>{name}</i> - not has been updated' => 'Книга - <i>{name}</i> - не была обновлена',
     'Book - <i>{name}</i> - was deleted' => 'Книга - <i>{name}</i> - была успешно удалена',
+    'Upload preview' => 'Загрузить превью',
+    'Preview not uploaded: error type or big size' => 'Превью не загружено: ошибка формата или превышен размер',
     ];
