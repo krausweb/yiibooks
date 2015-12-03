@@ -86,11 +86,11 @@ echo FancyBox::widget([
                 'attribute' => 'preview',
                 'format'=>'raw',
                 'value' => function($model){
-                    return Html::a(Html::img("img/small/".$model->preview, [
+                    return Html::a(Html::img("/backend/web/img/small/".$model->preview, [
                                                 'alt' => $model->name,
                                                 'style' => 'height:50px;'
                                             ]),
-                                        "img/original/".$model->preview,
+                                        "/backend/web/img/original/".$model->preview,
                                         [ 'title' => $model->name, 'rel' => 'fancybox' ] );
                 },
                 'contentOptions' => ['class'=>'books_table_img'],

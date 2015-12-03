@@ -18,11 +18,11 @@ use dosamigos\datepicker\DatePicker;
     <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
 
     <?php if(!$model->isNewRecord){
-        echo Html::a(Html::img("img/small/".$model->preview, [
+        echo Html::a(Html::img("/backend/web/img/small/".$model->preview, [
                         'alt' => $model->name,
                         'style' => 'height:100px;padding-bottom: 10px;'
                     ]),
-             "img/original/".$model->preview,
+             "/backend/web/img/original/".$model->preview,
              [ 'title' => $model->name, 'rel' => 'fancybox' ] );
         }
      ?>
